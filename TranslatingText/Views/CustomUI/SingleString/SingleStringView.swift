@@ -9,7 +9,7 @@ import SwiftUI
 import Translation
 
 struct SingleStringView: View {
-    @State private var sourceText = "Hallo, welt!"
+    @State private var sourceText = "Hallo, Welt!"
     @State private var targetText = ""
 
     // Define a configuration.

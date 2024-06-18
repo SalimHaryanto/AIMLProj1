@@ -13,7 +13,7 @@ struct ViewTranslationView: View {
     @State private var showTranslation = false
 
     // Define the text you want to translate.
-    var originalText = "Hallo, welt!"
+    var originalText = "Hallo, Welt!"
 
     var body: some View {
         VStack {
