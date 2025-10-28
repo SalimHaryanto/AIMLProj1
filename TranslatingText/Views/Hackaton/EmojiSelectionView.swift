@@ -34,15 +34,7 @@ struct EmojiSelectionView: View {
     private let columns = Array(repeating: GridItem(.flexible()), count: 5)
     
     var body: some View {
-        VStack(spacing: 20) {
-            Picker("Language", selection: $selectedLanguageIndex) {
-                ForEach(0..<languages.count, id: \.self) { idx in
-                    Text(languages[idx].name)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-
+        VStack(spacing: 30) {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(emojis, id: \.self) { emoji in
                     Button(action: {
@@ -60,21 +52,19 @@ struct EmojiSelectionView: View {
                     .disabled(!selected.contains(emoji) && selected.count >= 3)
                 }
             }
+
+            Picker("Language", selection: $selectedLanguageIndex) {
+                ForEach(0..<languages.count, id: \.self) { idx in
+                    Text(languages[idx].name)
+                }
+            }
+            .pickerStyle(.segmented)
+
             Button("Translate Names") {
                 translateSelectedEmojis()
             }
             .disabled(selected.isEmpty)
-            Text(translatedText)
-                .font(.title3)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.secondary.opacity(0.15))
-                .cornerRadius(8)
-            Button("Read Aloud") {
-                // Present the system translation sheet first, similar to ViewTranslationView
-                showTranslation = true
-            }
-            .disabled(translatedText.isEmpty)
+
             Button("Generate Images") {
                 showImageGenerator = true
             }
@@ -84,6 +74,22 @@ struct EmojiSelectionView: View {
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
             }
+
+            Text(translatedText)
+                .font(.title3)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.secondary.opacity(0.15))
+                .cornerRadius(8)
+
+            Spacer()
+
+
+            Button("Read Aloud") {
+                // Present the system translation sheet first, similar to ViewTranslationView
+                showTranslation = true
+            }
+            .disabled(translatedText.isEmpty)
         }
         .onAppear { generateRandomEmojis() }
         .translationTask(configuration) { session in
