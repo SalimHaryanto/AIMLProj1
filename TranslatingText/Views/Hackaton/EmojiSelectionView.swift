@@ -35,6 +35,8 @@ struct EmojiSelectionView: View {
     
     var body: some View {
         VStack(spacing: 30) {
+            Text("Pick up to 3 emoji and learn!")
+                .font(Font.system(.callout))
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(emojis, id: \.self) { emoji in
                     Button(action: {
@@ -113,7 +115,7 @@ struct EmojiSelectionView: View {
         }
         .translationPresentation(isPresented: $showTranslation, text: translatedText)
         .padding()
-        .navigationTitle("Pick up to 3 Emoji")
+        .navigationTitle("Mojingo")
     }
     
     private func toggleSelection(_ emoji: String) {
